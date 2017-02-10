@@ -1,9 +1,9 @@
 {
   "name": "GestionEtudiant",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node server"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -20,5 +20,8 @@
     "firebase-admin": "*",
     "dateformat":"*",
     "serve-favicon": "~2.3.0"
+  },
+  "engines": {
+    "node": "~0.10.0 || ~4.2.0"
   }
 }
