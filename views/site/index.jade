@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  h3 Add new site
+          form(role='form',method='post', action='/site/add')
+            br
+            .form-group.input-group
+              span.input-group-addon
+                i.fa.fa-circle-o-notch
+              input.form-control(type='text', placeholder='site url feed',value=(userp.prenom || ""), name = 'site[url]')
+            br
+            .form-group.input-group
+              span.input-group-addon
+                i.fa.fa-tag
+              input.form-control(type='text', placeholder='country',value=(userp.urlimg || ""), name = 'site[country]') 
+            br           
+            input.btn.btn-primary(type='submit', value="Add")
+            span.pull-right    
+            input.btn.btn-primary(type='button' href="/" value="Cancel")
+          
+    .col-md-9.col-sm-12.col-xs-12
+      .panel.panel-default
+        .panel-heading
+          h3 List of sites
+        .panel-body
+          br
+          .table-responsive
+              table.table.table-striped.table-bordered.table-hover
+                
+                thead
+                  tr
+                    th Name
+                    th Url 
+                    th Language
+                    th Country
+                    th Description
+                
+                tbody
+                  each data, i in listsite
+                    tr
+                      //- code...
+                      td 
+                        a(href=data.url) #{data.name}
+                      td #{data.url}
+                      td #{data.language}
+                      td #{data.country}
+                      td #{data.description}
+                

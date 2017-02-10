@@ -1,0 +1,34 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  align-items: center;
+  font-size: 85%; margin-left: 2em; margin-right: 2em;
+}
+form{
+
+  font: 14px "Lucida Grande",Helvetica,Arial;
+}
+table{
+  border: 1px;
+  border-color:
+}
+a {
+  color: #00B7FF;
+}
+
+br{
+    clear: both;
+}
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+    border: medium solid;
+
+}
+th,td{
+    border: 1px solid black;
+    text-align: left;
+    padding: .5em;
+
+}
