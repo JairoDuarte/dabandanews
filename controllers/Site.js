@@ -75,6 +75,7 @@ module.exports = function(app) {
     taskSchedule.second = 1;
     schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
     schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
+    app.models.ChargerItems.getItems;
     res.redirect('/site');
     }
   };
