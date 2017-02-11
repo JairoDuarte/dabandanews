@@ -56,30 +56,33 @@ module.exports = function(app) {
       _item = new Object();
       _item.site = sitename;
       _item.adddate =date;
-      _item.creator = item['dc:creator'];
-      _item.title = item.title;
-      _item.url = item.link;
-      _item.pubdate = item.pubDate;
-      _item.category=item.category;
-      _item.description = cheerio.load(item.description).text();
-      var $content = cheerio.load(item['content:encoded']);
-      var $ = $content('img');
-      _item.content = $content.text();
+      _item.creator = item['dc:creator'] || '';
+      _item.title = item.title || '';
+      _item.url = item.link|| '';
+      _item.pubdate = item.pubDate || '';
+      _item.category=item.category || '';
       try {
+        var $content = cheerio.load(item['content:encoded']);
+        var $ = $content('img');
+        _item.content = $content.text();
         _item.image = $['0'].attribs.src;
       } catch (e) {
+        _item.content = '';
         try {
           _item.image = item.enclosure['$'].url; //['']
-        } catch (e) {
-        }
-      } finally {
-
+        } catch (e) {_item.image ='';}
+      }
+      try {
+        _item.description = cheerio.load(item.description).text();
+      } catch (e) {
+        _item.description ='';
       }
       itemArray.push(_item);
     }
     addItems(itemArray);
   }
   function addItems(itemArray) {
+    console.log('database');
     var refdata = db.ref('feed-noticias/items');
     for (var i = 0; i < itemArray.length; i++) {
       refdata.push(itemArray[i]);
