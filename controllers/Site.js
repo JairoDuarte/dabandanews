@@ -28,15 +28,15 @@ module.exports = function(app) {
                 to_json(body, function (error, data) {
                 // Module returns a JS object
                   if (!error) {
-                    var channel = site.name || data.rss.channel;
+                    var channel =  data.rss.channel;
 
-                    _site.name = channel.title;
+                    _site.name = site.name || channel.title;
                     _site.url = channel.link;
                     _site.description = channel.description;
                     _site.urlfeed = site.url;
                     _site.country = site.country;
                     _site.language = channel.language;
-                    //refdata.push(_site);
+                    refdata.push(_site);
 
                     res.redirect('/site');
                   }else
@@ -46,35 +46,12 @@ module.exports = function(app) {
                 res.status(500).send("request error");
             });
 
-          //return res.status(200).send('site add');
         } catch (e) {
           console.log(e);
             return res.status(500).send("Add failled  ");
         }
     },
-    update:function (req,res) {
-      console.log(req.body);
-      console.log(req.params.id);
-      try {
-            return res.json(result.rows);
-
-      } catch (e) {
-          return res.status(500).send("Echec dans la base données ");
-      }
-      return res.json(req.body);
-    },
     getItems:function (req,res) {
-      var taskSchedule = new schedule.RecurrenceRule();
-      var rule = new schedule.RecurrenceRule();
-      rule.dayOfWeek = [0,3];
-      rule.hour = 23;
-      rule.minute = 30;
-      //rule.second = 30;
-      taskSchedule.hour=23;
-      taskSchedule.minute = 30;
-      taskSchedule.second = 1;
-      schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
-      schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
       app.models.ChargerItems.getItems();
       res.redirect('/site');
     }

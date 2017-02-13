@@ -16,7 +16,7 @@ module.exports = function(app) {
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
     }
-  }
+  };
 
   function getSite(){
     console.log('getSite()');
@@ -88,7 +88,6 @@ module.exports = function(app) {
       refdata.push(itemArray[i]);
     }
   }
-
 
   return ChargerItems;
 }

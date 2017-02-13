@@ -21,10 +21,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 load('models')
+  .then('tasks')
   .then('controllers')
   .then('routes')
   .into(app)
 ;
+
+app.tasks.ItemsTask.getItems();
 
 //app.use('/', routes);
 //app.use('/users', users);
