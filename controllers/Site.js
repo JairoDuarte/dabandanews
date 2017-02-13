@@ -18,9 +18,8 @@ module.exports = function(app) {
     },
     add:function (req,res) {
         var site = req.body.site, _site={},
-        refdata = db.ref('feed-noticias/sites').push(),
-        ref=db.ref('feed-noticias/sites');
-        if ( site.url==undefined)
+        refdata = db.ref('feed-noticias/sites');//.push();
+        if (site.url==undefined)
             return res.status(500).send('url in required');
         try {
           request(site.url, function (error, response, body) {
@@ -29,7 +28,7 @@ module.exports = function(app) {
                 to_json(body, function (error, data) {
                 // Module returns a JS object
                   if (!error) {
-                    var channel = data.rss.channel;
+                    var channel = site.name || data.rss.channel;
 
                     _site.name = channel.title;
                     _site.url = channel.link;
@@ -37,13 +36,14 @@ module.exports = function(app) {
                     _site.urlfeed = site.url;
                     _site.country = site.country;
                     _site.language = channel.language;
-                        refdata.set(_site);
+                    //refdata.push(_site);
+
                     res.redirect('/site');
                   }else
-                    return res.status(500).send("to_json error");
+                    res.status(500).send("to_json error");
                 });
               }else
-                return res.status(500).send("request error");
+                res.status(500).send("request error");
             });
 
           //return res.status(200).send('site add');
@@ -64,25 +64,20 @@ module.exports = function(app) {
       return res.json(req.body);
     },
     getItems:function (req,res) {
-    var taskSchedule = new schedule.RecurrenceRule();
-    var rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [0,3];
-    rule.hour = 23;
-    rule.minute = 30;
-    //rule.second = 30;
-    console.log('getItems site');
-    taskSchedule.hour=23;
-    taskSchedule.minute = 30;
-    taskSchedule.second = 1;
-    schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
-    schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
-    app.models.ChargerItems.getItems();
-    res.redirect('/site');
+      var taskSchedule = new schedule.RecurrenceRule();
+      var rule = new schedule.RecurrenceRule();
+      rule.dayOfWeek = [0,3];
+      rule.hour = 23;
+      rule.minute = 30;
+      //rule.second = 30;
+      taskSchedule.hour=23;
+      taskSchedule.minute = 30;
+      taskSchedule.second = 1;
+      schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
+      schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
+      app.models.ChargerItems.getItems();
+      res.redirect('/site');
     }
   };
-  function testT(req,res){
-    console.log('testT()');
-    //res.redirect('/site');
-  }
   return SiteController;
 };

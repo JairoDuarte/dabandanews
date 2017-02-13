@@ -10,6 +10,11 @@ block content
             .form-group.input-group
               span.input-group-addon
                 i.fa.fa-circle-o-notch
+              input.form-control(type='text', placeholder='site name',value=(userp.prenom || ""), name = 'site[name]')
+            br
+            .form-group.input-group
+              span.input-group-addon
+                i.fa.fa-circle-o-notch
               input.form-control(type='text', placeholder='site url feed',value=(userp.prenom || ""), name = 'site[url]')
             br
             .form-group.input-group
