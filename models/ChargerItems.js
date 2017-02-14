@@ -29,6 +29,13 @@ module.exports = function(app) {
     });
   }
   function getChannel(sites){
+    var _sites=[], site,cont=-1;
+    for (var i in sites) {
+      site = new Object();
+      site = sites[i].name;
+      _sites.push(site);
+    }
+
     console.log('getChannel()');
     for (var i in sites) {
       console.log(sites[i].name);
@@ -38,7 +45,8 @@ module.exports = function(app) {
             // Module returns a JS object
               if (!error) {
                 var channel = data.rss.channel;
-                getItems(channel,sites[i].name);
+                cont++;
+                getItems(channel,_sites, cont);
               }else
                 console.log('to_json error');
             });
@@ -47,14 +55,14 @@ module.exports = function(app) {
         });
     }
   }
-  function getItems(site,sitename) {
+  function getItems(site,listsite, indx) {
     var itemArray =[],_item;
     console.log('getItems()');
     for (var i in site.item) {
       var item =  site.item[i];
       //console.log(item);
       _item = new Object();
-      _item.site = sitename;
+      _item.site = listsite[indx];
       _item.adddate =date;
       _item.creator = item['dc:creator'] || '';
       _item.title = item.title || '';
