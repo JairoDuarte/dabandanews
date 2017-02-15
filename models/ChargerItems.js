@@ -10,14 +10,16 @@ module.exports = function(app) {
     getItems: function () {
       console.log('la');
       getSite();
-      var Date.date=new Date();
+      var Date = {};
+      Date.date=new Date();
       refdata = db.ref('feed-noticias/date_AddAll').push(Date);
     },
     deleteItems:function () {
       console.log('deleteItems');
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
-      var Date=new Date();
+      var Date={};
+      Date.date=new Date();
       refdata = db.ref('feed-noticias/date_DeleteAll').push(Date);
       
     }
