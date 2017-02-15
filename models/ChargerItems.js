@@ -10,7 +10,7 @@ module.exports = function(app) {
     getItems: function () {
       console.log('la');
       var _Date = {};
-      _Date.date=new Date().toDateString();
+      _Date.date=dateFormat(new Date, "dd-mm-yyyy h:MM");;
       refdata = db.ref('feed-noticias/date_AddAll');
       refdata.push(_Date);
       getSite();
@@ -20,7 +20,7 @@ module.exports = function(app) {
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
       var _Date={};
-      _Date.date=new Date().toDateString();
+      _Date.date=dateFormat(new Date, "dd-mm-yyyy h:MM");;
       refdata = db.ref('feed-noticias/date_DeleteAll');
       refdata.push(_Date);
     }
