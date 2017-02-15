@@ -9,8 +9,11 @@ module.exports = function(app) {
   var ChargerItems = {
     getItems: function () {
       console.log('la');
-      getSite();
       var _Date = {};
+      _Date.date=new Date();
+      refdata = db.ref('feed-noticias/date_AddAll');
+      refdate.push(_Date);
+      getSite();
       _Date.date=new Date();
       refdata = db.ref('feed-noticias/date_AddAll').push(_Date);
     },
@@ -20,7 +23,8 @@ module.exports = function(app) {
       refdata.remove();
       var _Date={};
       _Date.date=new Date();
-      refdata = db.ref('feed-noticias/date_DeleteAll').push(_Date);
+      refdata = db.ref('feed-noticias/date_DeleteAll');
+      refdate.push(_Date);
       
     }
   };
