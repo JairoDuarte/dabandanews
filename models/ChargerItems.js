@@ -15,6 +15,9 @@ module.exports = function(app) {
       console.log('deleteItems');
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
+      var Date=date;
+      refdata = db.ref('feed-noticias/date_DeleteAll').push(Date);
+      
     }
   };
 
@@ -88,6 +91,8 @@ module.exports = function(app) {
     for (var i = 0; i < itemArray.length; i++) {
       refdata.push(itemArray[i]);
     }
+    var Date=date;
+    refdata = db.ref('feed-noticias/date_AddAll').push(Date);  
   }
 
   return ChargerItems;
