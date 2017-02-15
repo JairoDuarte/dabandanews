@@ -10,12 +10,14 @@ module.exports = function(app) {
     getItems: function () {
       console.log('la');
       getSite();
+      var Date.date=new Date();
+      refdata = db.ref('feed-noticias/date_AddAll').push(Date);
     },
     deleteItems:function () {
       console.log('deleteItems');
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
-      var Date=date;
+      var Date=new Date();
       refdata = db.ref('feed-noticias/date_DeleteAll').push(Date);
       
     }
@@ -90,9 +92,7 @@ module.exports = function(app) {
     var refdata = db.ref('feed-noticias/items');
     for (var i = 0; i < itemArray.length; i++) {
       refdata.push(itemArray[i]);
-    }
-    var Date=date;
-    refdata = db.ref('feed-noticias/date_AddAll').push(Date);  
+    }  
   }
 
   return ChargerItems;
