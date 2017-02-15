@@ -10,22 +10,19 @@ module.exports = function(app) {
     getItems: function () {
       console.log('la');
       var _Date = {};
-      _Date.date=new Date();
+      _Date.date=new Date().toDateString();
       refdata = db.ref('feed-noticias/date_AddAll');
-      refdate.push(_Date);
+      refdata.push(_Date);
       getSite();
-      _Date.date=new Date();
-      refdata = db.ref('feed-noticias/date_AddAll').push(_Date);
     },
     deleteItems:function () {
       console.log('deleteItems');
       var refdata = db.ref('feed-noticias/items');
       refdata.remove();
       var _Date={};
-      _Date.date=new Date();
+      _Date.date=new Date().toDateString();
       refdata = db.ref('feed-noticias/date_DeleteAll');
-      refdate.push(_Date);
-      
+      refdata.push(_Date);
     }
   };
 
