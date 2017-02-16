@@ -5,13 +5,13 @@ module.exports = function(app) {
     getItems: function(){
       var taskSchedule = new schedule.RecurrenceRule();
       var rule = new schedule.RecurrenceRule();
-      rule.dayOfWeek = [0,3];
-      rule.hour = 18;
-      rule.minute = 30;
+      //rule.dayOfWeek = [0,3];
+      rule.hour = 19;
+      rule.minute = 40;
       rule.second = 30;
       console.log('getItems site');
-      taskSchedule.hour=18;
-      taskSchedule.minute = 50;
+      taskSchedule.hour=19;
+      taskSchedule.minute = 43;
       taskSchedule.second = 1;
       schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
       schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
