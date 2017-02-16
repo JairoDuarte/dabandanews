@@ -6,12 +6,12 @@ module.exports = function(app) {
       var taskSchedule = new schedule.RecurrenceRule();
       var rule = new schedule.RecurrenceRule();
       //rule.dayOfWeek = [0,3];
-      rule.hour = 19;
-      rule.minute = 40;
+      rule.hour = 20;
+      rule.minute = 5;
       rule.second = 30;
       console.log('getItems site');
-      taskSchedule.hour=19;
-      taskSchedule.minute = 43;
+      taskSchedule.hour=20;
+      taskSchedule.minute = 10;
       taskSchedule.second = 1;
       schedule.scheduleJob(rule,app.models.ChargerItems.deleteItems);
       schedule.scheduleJob(taskSchedule, app.models.ChargerItems.getItems);
