@@ -5,5 +5,6 @@ module.exports= function(app) {
     //app.get('/site/add/',site.add);
     app.get('/site/',site.getAll);
     app.get('/site/task/',site.getItems);
-    app.post('/site/add',site.add);
+    app.post('/site/add',site.add); 
+    app.get('/site/delete',site.deleteItems);
   }

@@ -53,7 +53,11 @@ module.exports = function(app) {
     },
     getItems:function (req,res) {
       app.models.ChargerItems.getItems();
-      res.redirect('/site');
+      res.redirect('/');
+    },
+    deleteItems:function (req,res) {
+      app.models.ChargerItems.deleteItems();
+      res.redirect('/');
     }
   };
   return SiteController;
