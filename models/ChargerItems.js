@@ -8,28 +8,36 @@ module.exports = function(app) {
 
   var ChargerItems = {
     getItems: function () {
-      console.log('la');
-      var _Date = {};
-      _Date.date=dateFormat(new Date, "dd-mm-yyyy h:MM");;
-      refdata = db.ref('feed-noticias/date_AddAll');
-      refdata.push(_Date);
       getSite();
     },
     deleteItems:function () {
       console.log('deleteItems');
       var refdata = db.ref('feed-noticias/items');
-      refdata.remove();
       var _Date={};
-      _Date.date=dateFormat(new Date, "dd-mm-yyyy h:MM");;
-      refdata = db.ref('feed-noticias/date_DeleteAll');
-      refdata.push(_Date);
+      _Date.date=dateFormat(new Date, "dd-mm-yyyy hh:MM");
+      var refdate = db.ref('feed-noticias/date_DeleteAll');
+      
+      refdata.remove( function(error) {
+          if (error) {
+            console.log('Synchronization failed');
+          } else {
+            refdate.push(_Date);
+            console.log('Synchronization succeeded');
+            getSite();
+          }
+        });
     }
   };
 
   function getSite(){
+    var _Date = {};
+    _Date.date=dateFormat(new Date, "dd-mm-yyyy hh:MM");
+    var refdate = db.ref('feed-noticias/date_AddAll');
+    refdate.push(_Date);
+    
     console.log('getSite()');
     var refdata = db.ref('feed-noticias/sites');
-    refdata.on("value", function(snapshot) {
+    refdata.once("value", function(snapshot) {
       var sites = snapshot.val();
       getChannel(sites);
     }, function (errorObject) {

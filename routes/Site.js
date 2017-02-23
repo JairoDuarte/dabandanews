@@ -7,4 +7,5 @@ module.exports= function(app) {
     app.get('/site/task/',site.getItems);
     app.post('/site/add',site.add); 
     app.get('/site/delete',site.deleteItems);
+    app.get('/site/update',site.updateItems);
   }

@@ -58,6 +58,46 @@ module.exports = function(app) {
     deleteItems:function (req,res) {
       app.models.ChargerItems.deleteItems();
       res.redirect('/');
+    },
+    updateItems:function(req, res){
+      var refdata = db.ref('feed-noticias/date_AddAll');
+     
+      refdata.limitToLast(1).once("child_added", function(snapshot) {
+        console.log(snapshot.key);
+        var date = snapshot.val().date, h = date.substring(11, 13),m= date.substring(14,16), j=date.substring(0,2);
+        var today = new Date();
+        var newH;
+        newH = today.getHours();
+        if(newH>12) newH-=12;
+        if (j == today.getDate()) {
+          var dif =(newH*60+today.getMinutes())-(h*60 +m*1);
+          console.log("dif = "+dif);console.log();
+          if (dif >=120) {
+            app.models.ChargerItems.deleteItems();
+            console.log("updateItems 1");
+            return res.status(200).send("em actualização")
+          } else {
+            console.log("actualizado");
+            return res.status(200).send("actualizado");
+          }
+        } else {
+          var difj = today.getDay() - j;
+          if (difj ==1) {
+            var dif = (24*60 + newH*60 +today.getMinutes()) -(m *24);  
+            if (dif >=180) {
+              app.models.ChargerItems.deleteItems();
+              return res.status(200).send("em actualização")
+            } else {
+              console.log("actualizado");
+              return res.status(200).send("actualizado");
+            } 
+          } else {
+            app.models.ChargerItems.deleteItems();
+            console.log("updateItems 2");
+            return res.status(200).send("em actualização");
+          }
+        }
+      });
     }
   };
   return SiteController;
